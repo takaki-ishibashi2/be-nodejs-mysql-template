@@ -1,0 +1,24 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowJs": true,
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "ES6",
+    "strictNullChecks": true,
+    "outDir": "build/"
+  },
+  "include": [
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/lib",
+    "typings/main",
+    "typings/main.d.ts",
+    "dist",
+    "tmp",
+    "build"
+  ]
+}
