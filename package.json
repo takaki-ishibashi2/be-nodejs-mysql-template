@@ -1,38 +1,35 @@
 {
-  "name": "be-nodejs-mysql-template",
+  "name": "templateapp",
+  "version": "1.0.0",
+  "main": "server.js",
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch",
-    "test": "npm run build && npm run test:build && mocha ./build/test/**/*.test.js",
-    "test:build": "tsc -p tsconfig.test.json",
-    "test:load": "node ./build/test/**/*.load.js",
-    "start": "npm run build && node build/server.js"
+    "start": "yarn build && node build/server.js",
+    "test": "yarn test:build && mocha ./build/test/**/*.test.js",
+    "test:build": "tsc -p tsconfig.test.json"
   },
-  "version": "1.0.0",
-  "main": "index.js",
-  "repository": "git@github.com:takaki-ishibashi2/be-nodejs-mysql-template.git",
-  "author": "takaki.ishibashi2 <taka@reaktor.co.jp>",
-  "license": "MIT",
   "dependencies": {
-    "@types/body-parser": "^1.16.5",
-    "@types/dotenv": "^4.0.1",
+    "@types/body-parser": "^1.16.4",
+    "@types/dotenv": "^4.0.0",
     "@types/escape-html": "^0.0.20",
-    "@types/express": "^4.0.37",
+    "@types/express": "^4.0.36",
     "@types/mysql": "^0.0.34",
-    "@types/node": "^8.0.28",
-    "@types/request": "^2.0.3",
-    "body-parser": "^1.18.1",
+    "@types/node": "^8.0.17",
+    "@types/request": "^2.0.0",
+    "body-parser": "^1.17.2",
     "dotenv": "^4.0.0",
     "escape-html": "^1.0.3",
-    "express": "^4.15.4",
-    "json2csv": "^3.11.2",
-    "loadtest": "^2.3.0",
-    "mysql": "^2.14.1"
+    "express": "^4.15.3",
+    "json2csv": "^3.11.1",
+    "mysql": "^2.14.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.43",
+    "@types/should": "^8.3.0",
     "@types/supertest": "^2.0.3",
-    "mocha": "^3.5.3",
+    "mocha": "^4.0.0",
+    "should": "^11.2.1",
     "supertest": "^3.0.0"
-  }
+  },
+  "description": ""
 }
