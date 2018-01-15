@@ -10,8 +10,7 @@
     "outDir": "build/test"
   },
   "include": [
-    "test/**/*.test.ts",
-    "test/**/*.load.ts"
+    "test/**/*.test.ts"
   ],
   "exclude": [
     "node_modules",
