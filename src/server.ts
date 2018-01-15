@@ -5,7 +5,9 @@ import * as mysql from 'mysql'
 import * as fs from 'fs'
 import * as escape from 'escape-html'
 import * as json2csv from 'json2csv'
+import {logger} from './logger'
 
+logger.info(`Starting in environment`)
 dotenv.config()
 const server = express()
 const envAry = ['AUTH_KEY','DB_HOST','DB_PORT','DB_USR','DB_USR_PW','DB_NAME',

@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const mysql = require("mysql");
 const escape = require("escape-html");
 const json2csv = require("json2csv");
+const logger_1 = require("./logger");
+logger_1.logger.info(`Starting in environment`);
 dotenv.config();
 const server = express();
 const envAry = ['AUTH_KEY', 'DB_HOST', 'DB_PORT', 'DB_USR', 'DB_USR_PW', 'DB_NAME',
