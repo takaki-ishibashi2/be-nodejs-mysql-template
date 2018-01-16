@@ -1,1 +1,1 @@
-# be-nodejs-mysql-template
+# nodejs-mysql-template
