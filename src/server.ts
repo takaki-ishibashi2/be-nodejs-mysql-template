@@ -39,9 +39,11 @@ function createBasicAuthHandler (): express.RequestHandler {
     && config.basicAuthPass.length > 0
   ) {
     usrOpts.users[config.basicAuthUser] = config.basicAuthPass
+
     return basicAuth(usrOpts)
   } else {
     logger.error(`Missing non-empty Basic Auth user or password from environment variables, defaulting everything to 403.`)
+
     return (req, res) => {
       return modules.sendErrorMessage(res, 403, '')
     }
