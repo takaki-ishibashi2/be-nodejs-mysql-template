@@ -44,7 +44,7 @@ const runEnvs: Record<Environment, () => Config> = {
   [Environment.LOCAL]: () => ({
     runEnv: Environment.LOCAL.toString(),
     authKey: '1234567890abcdefg',
-    port: 8080,
+    port: 8081,
     databaseHost: 'localhost',
     databasePort: 3306,
     databaseUser: 'root',
