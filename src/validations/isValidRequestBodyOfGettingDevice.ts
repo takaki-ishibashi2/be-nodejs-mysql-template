@@ -1,6 +1,6 @@
 import * as escape from 'escape-html'
 
-export const validateDeviceGetRequestBody = (reqBody: any) => {
+export const isValidRequestBodyOfGettingDevice = (reqBody: any) => {
   const requiredFields = [
     'uuid',
   ]
