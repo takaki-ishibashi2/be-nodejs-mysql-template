@@ -1,4 +1,4 @@
-export type IOS = {
+export type IOs = {
   name: string,
   version: string,
 }

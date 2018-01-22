@@ -1,6 +1,6 @@
-import { DEVICE_UUID_LENGTH } from '../constan'
+import { DEVICE_UUID_LENGTH } from '../constans'
 
-export const validateDeviceUuid = (uuid: string) => {
+export const isValidDeviceUuid = (uuid: string) => {
   if (
     uuid
     && typeof uuid !== 'undefined'
