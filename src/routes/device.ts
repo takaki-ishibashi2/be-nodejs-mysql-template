@@ -19,7 +19,7 @@ export const deviceRoute = (server: express.Application) => {
           if(!validations.isValidDeviceUuid(validated.uuid)) {
             return modules.sendErrorMessage(res, 400, 'Bad request.')
           } else {
-            database.insertDevice(validated.uuid, validated.model, validated.os, validated.date)
+            database.insertOrUpdateDevice(validated.uuid, validated.model, validated.os, validated.date)
               .then(() => { return sendErrorMessage(res, 200, '') })
               .catch((err) => {
                 logger.error(`Issue handling ${path}`, err)

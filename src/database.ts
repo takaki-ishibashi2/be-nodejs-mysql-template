@@ -28,7 +28,7 @@ function connectAndQueryWithValues(statement: string, values: any[]) {
         if (conn) {
           conn.release()
         }
-        reject(false)
+        reject(err)
       } else {
         conn.query(
           statement,
@@ -37,14 +37,13 @@ function connectAndQueryWithValues(statement: string, values: any[]) {
             if (err) {
               logger.error(`Failed to query database (Query: ${statement})`, err)
               conn.release()
-              reject(false)
+              reject(err)
             } else {
               logger.debug(`Query OK: ${statement}`)
               conn.release()
               resolve(result)
             }
-          }
-        )
+          })
       }
     })
   })
@@ -73,23 +72,32 @@ export const insertDevice = (uuid: string, model: string, os: IOs,  date: string
     .set('DATE', date)
     .toParam()
 
-  logger.debug('=> Creating new device')
+  logger.debug('=> Creating new device information')
   logger.debug(query.text)
   return connectAndQueryWithValues(query.text, query.values)
 }
 
-export const updateDeviceDesc = (uuid: string, model: string, os: IOs, date: string) => {
-  logger.info(`UPDATE for /device/desc`)
+export const insertOrUpdateDevice = (uuid: string, model: string, os: IOs,  date: string) => {
+  logger.info(`POST for '${DEVICE_ROUTE_PATH}'`)
 
-  const query = squel.update()
-    .table(DEVICE_DESC_TBL_NAME)
-    .set('MODEL', model)
-    .set('OS_NAME', os.name)
-    .set('OS_VERSION', os.version)
-    .set('DATE', date)
-    .where('DEVICE_UUID = ?', uuid)
-    .toParam()
+  return selectDevice(uuid)
+    .then((result: any[]) => {
+      const hasExistingRow = (result.length > 0)
+      if (hasExistingRow) {
+        const query = squel.update()
+        .table(DEVICE_TBL_NAME)
+        .set('MODEL', model)
+        .set('OS_NAME', os.name)
+        .set('OS_VERSION', os.version)
+        .set('DATE', date)
+        .where('UUID = ?', uuid)
+        .toParam()
+      logger.debug('=> Updating existing device information')
+      logger.debug(query.text)
 
-    logger.debug(query.text)
-    return connectAndQueryWithValues(query.text, query.values)
+      return connectAndQueryWithValues(query.text, query.values)
+      } else {
+      return insertDevice(uuid, model, os, date)
+      }
+    })
 }
