@@ -4,23 +4,24 @@ import * as database from '../database'
 import * as modules from '../modules'
 import { logger } from '../logger'
 import { config } from '../config'
+import { DEVICE_ROUTE_PATH } from '../constans'
 
 export const deviceRoute = (server: express.Application) => {
-  const path = '/device'
+  const path = DEVICE_ROUTE_PATH
 
   server.route(`/v${config.apiVersion}${path}`)
     .post((req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
-        if (validations.validateApiKey(req)) {
-          const reqBoy = validations.validateDevicePostRequestBody(req.body)
+        if (validations.isValidApiKey(req)) {
+          const validated = validations.isValidRequestBodyOfPostingDevice(req.body)
 
-          if(!validations.validateDeviceUuid(reqBoy.uuid)) {
+          if(!validations.isValidDeviceUuid(validated.uuid)) {
             return modules.sendErrorMessage(res, 400, 'Bad request.')
           } else {
-            database.insertDevice(reqBoy.uuid)
+            database.insertDevice(validated.uuid, validated.model, validated.os, validated.date)
               .then(() => res.status(200).end())
               .catch((err) => {
-                logger.error(`Issu handling ${path}`, err)
+                logger.error(`Issue handling ${path}`, err)
                 return modules.sendErrorMessage(res, 500, '')
               })
           }
@@ -34,13 +35,13 @@ export const deviceRoute = (server: express.Application) => {
     })
     .get((req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
-        if (validations.validateApiKey(req)) {
-          const reqBoy = validations.validateDeviceGetRequestBody(req)
+        if (validations.isValidApiKey(req)) {
+          const validated = validations.validateDeviceGetRequestBody(req)
 
-          if (!validations.validateDeviceUuid(reqBoy.uuid)) {
+          if (!validations.isValidDeviceUuid(validated.uuid)) {
             return modules.sendErrorMessage(res, 400, 'Bad request.')
           } else {
-            database.selectDevice(reqBoy.uuid)
+            database.selectDevice(validated.uuid)
               .then(result => {
                 if (!Array.isArray(result) || result.length == 0) {
                   return modules.sendErrorMessage(res, 400, 'Bad request.')
