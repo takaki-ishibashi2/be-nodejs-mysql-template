@@ -5,6 +5,7 @@ import * as modules from '../modules'
 import { logger } from '../logger'
 import { config } from '../config'
 import { DEVICE_ROUTE_PATH } from '../constans'
+import { sendErrorMessage } from '../modules';
 
 export const deviceRoute = (server: express.Application) => {
   const path = DEVICE_ROUTE_PATH
@@ -19,7 +20,7 @@ export const deviceRoute = (server: express.Application) => {
             return modules.sendErrorMessage(res, 400, 'Bad request.')
           } else {
             database.insertDevice(validated.uuid, validated.model, validated.os, validated.date)
-              .then(() => res.status(200).end())
+              .then(() => { return sendErrorMessage(res, 200, '') })
               .catch((err) => {
                 logger.error(`Issue handling ${path}`, err)
                 return modules.sendErrorMessage(res, 500, '')
@@ -36,7 +37,7 @@ export const deviceRoute = (server: express.Application) => {
     .get((req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
         if (validations.isValidApiKey(req)) {
-          const validated = validations.validateDeviceGetRequestBody(req)
+          const validated = validations.isValidRequestBodyOfGettingDevice(req)
 
           if (!validations.isValidDeviceUuid(validated.uuid)) {
             return modules.sendErrorMessage(res, 400, 'Bad request.')
@@ -45,10 +46,8 @@ export const deviceRoute = (server: express.Application) => {
               .then(result => {
                 if (!Array.isArray(result) || result.length == 0) {
                   return modules.sendErrorMessage(res, 400, 'Bad request.')
-                } else if (result.length > 1) {
-                  return modules.sendErrorMessage(res, 400, 'Multiple results matching to UUID found.')
                 } else {
-                  return res.status(200).end(JSON.stringify(result))
+                  return modules.sendSuccessMessage(res, 200, JSON.stringify(result))
                 }
               })
               .catch(err => {
