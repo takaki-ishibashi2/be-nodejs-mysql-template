@@ -1,7 +1,7 @@
 import * as express from 'express'
 import * as escape from 'escape-html'
 
-export const isValidRequestBodyOfPostingDevice = (reqBody: any) => {
+export const validateRequestBodyOfPostingDevice = (reqBody: any) => {
   const requiredFields = [
     'uuid',
     'model',

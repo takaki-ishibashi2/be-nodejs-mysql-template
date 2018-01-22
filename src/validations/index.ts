@@ -1,11 +1,11 @@
 import { isValidApiKey } from './isValidApiKey'
-import { isValidRequestBodyOfGettingDevice } from './isValidRequestBodyOfGettingDevice'
-import { isValidRequestBodyOfPostingDevice } from './isValidRequestBodyOfPostingDevice'
+import { validateRequestBodyOfGettingDevice } from './validateRequestBodyOfGettingDevice'
+import { validateRequestBodyOfPostingDevice } from './validateRequestBodyOfPostingDevice'
 import { isValidDeviceUuid } from './isValidDeviceUuid'
 
 export {
   isValidApiKey,
-  isValidRequestBodyOfPostingDevice,
-  isValidRequestBodyOfGettingDevice,
+  validateRequestBodyOfPostingDevice,
+  validateRequestBodyOfGettingDevice,
   isValidDeviceUuid,
 }
