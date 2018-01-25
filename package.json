@@ -1,4 +1,6 @@
 {
+  "description": "Template of nodejs server on typescript.",
+  "author": "takaki-ishibashi2",
   "name": "nodejs-typescript-template",
   "version": "1.0.0",
   "main": "server.js",
@@ -40,7 +42,6 @@
     "should": "^11.2.1",
     "supertest": "^3.0.0"
   },
-  "description": {},
-  "repository": "",
+  "repository": "https://github.com/takaki-ishibashi2/nodejs-typescript-template",
   "license": "MIT"
 }
