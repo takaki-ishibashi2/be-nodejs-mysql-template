@@ -4,3 +4,17 @@ services:
     build: .
     ports:
       - '8081:8081'
+    container_name: server_on_dnw
+    environment:
+      RUN_ENV: local
+      AUTH_KEY: m3FUxbLExcUqxpYw
+      PORT: 8081
+      DB_HOST: localhost
+      DB_PORT: 3306
+      DB_USR: u7yme2bt
+      DB_USR_PW: RzPHyvgJpXzLNY3yN7Pdu7HXVYUTJNeN
+      DB_NAME: g2t3cnwd
+      DB_TBL_NAME: e4f9rN9e
+      API_VERSION: 1
+      AUTH_USR: admin
+      AUTH_PW: admin

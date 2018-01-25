@@ -43,13 +43,13 @@ function getNumberValueOfRequiredEnvVariable(key: string): number {
 const runEnvs: Record<Environment, () => Config> = {
   [Environment.LOCAL]: () => ({
     runEnv: Environment.LOCAL.toString(),
-    authKey: '1234567890abcdefg',
+    authKey: 'm3FUxbLExcUqxpYw',
     port: 8081,
     databaseHost: 'localhost',
     databasePort: 3306,
-    databaseUser: 'root',
-    databasePass: '',
-    databaseName: 'rssi',
+    databaseUser: 'u7yme2bt',
+    databasePass: 'RzPHyvgJpXzLNY3yN7Pdu7HXVYUTJNeN',
+    databaseName: 'g2t3cnwd',
     apiVersion: 1,
     basicAuthUser: 'admin',
     basicAuthPass: 'admin',
@@ -64,7 +64,7 @@ const runEnvs: Record<Environment, () => Config> = {
     databasePass: getStringValueOfRequiredEnvVariable('DB_USR_PW'),
     databaseName: getStringValueOfRequiredEnvVariable('DB_NAME'),
     apiVersion: getNumberValueOfRequiredEnvVariable('API_VERSION'),
-    basicAuthUser: getStringValueOfRequiredEnvVariable('AUTH_USER'),
+    basicAuthUser: getStringValueOfRequiredEnvVariable('AUTH_USR'),
     basicAuthPass: getStringValueOfRequiredEnvVariable('AUTH_PW'),
   })
 }
