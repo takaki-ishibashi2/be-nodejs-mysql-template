@@ -1,5 +1,5 @@
 {
-  "name": "templateapp",
+  "name": "nodejs-typescript-template",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
