@@ -1,1 +1,1 @@
-# nodejs-mysql-template
+# nodejs-typescript-template
