@@ -7,7 +7,7 @@ ENV PORT=8081
 WORKDIR $ROOT_DIR
 
 # Bundle app source
-COPY . .
+COPY . $ROOT_DIR
 
 EXPOSE $PORT
 
