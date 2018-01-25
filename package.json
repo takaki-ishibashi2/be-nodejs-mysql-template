@@ -5,6 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/server.js",
+    "start:on:docker": "docker-compose run --name dockerize-server --rm --publish 127.0.0.1:8081:8081 server",
     "test": "yarn test:build && mocha ./build/test/**/*.test.js",
     "test:build": "tsc -p tsconfig.test.json"
   },

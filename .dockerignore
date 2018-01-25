@@ -1,0 +1,12 @@
+Dockerfile
+deploy
+tsconfig.json
+LICENSE
+docker-compose.yml
+scripts
+tsconfig.test.json
+README.md
+src
+yarn.lock
+npm-shrinkwrap.json
+test
