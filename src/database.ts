@@ -6,8 +6,12 @@ import * as escape from 'escape-html'
 import * as squel from 'squel'
 import { logger } from './logger'
 import { config } from './config'
-import { IOs } from './types'
 import { DEVICE_ROUTE_PATH } from './constans'
+
+type IOS = {
+  name: string,
+  version: string,
+}
 
 const DEVICE_TBL_NAME = 'device'
 const DEVICE_DESC_TBL_NAME = 'device_desc'
@@ -60,7 +64,7 @@ export const selectDevice = (uuid: string) => {
   return connectAndQueryWithValues(query.text, query.values)
 }
 
-export const insertDevice = (uuid: string, model: string, os: IOs,  date: string) => {
+export const insertDevice = (uuid: string, model: string, os: IOS,  date: string) => {
   logger.info(`POST for '${DEVICE_ROUTE_PATH}'`)
 
   const query = squel.insert()
@@ -77,7 +81,7 @@ export const insertDevice = (uuid: string, model: string, os: IOs,  date: string
   return connectAndQueryWithValues(query.text, query.values)
 }
 
-export const insertOrUpdateDevice = (uuid: string, model: string, os: IOs,  date: string) => {
+export const insertOrUpdateDevice = (uuid: string, model: string, os: IOS,  date: string) => {
   logger.info(`POST for '${DEVICE_ROUTE_PATH}'`)
 
   return selectDevice(uuid)

@@ -57,6 +57,12 @@ server.use(basicAuthHandler,
   {maxAge: 0})
 )
 
+server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+  res.setHeader('Cache-Control', 'no-cache')
+  res.setHeader('Expires', '-1')
+  next()
+})
+
 server.listen(config.port, () => {
   logger.info(`Server listening on PORT '${config.port}'...`)
 })
