@@ -28,7 +28,7 @@ function connectAndQueryWithValues(statement: string, values: any[]) {
   return new Promise((resolve, reject) => {
     pool.getConnection((err, conn) => {
       if (err) {
-        logger.error(`Failed to connect to database (Host: ${config.databaseName}, Port: ${config.databasePort})`, err)
+        logger.error(`Failed to connect to database (Host: ${config.databaseHost}, Port: ${config.databasePort})`, err)
         if (conn) {
           conn.release()
         }
