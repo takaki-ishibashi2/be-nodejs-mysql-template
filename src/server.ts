@@ -9,23 +9,6 @@ import { routes } from './routes'
 
 logger.info(`Starting in environment '${config.runEnv}'.`)
 
-const server = express()
-const API_VERSION = config.apiVersion
-
-server.disable('x-powered-by') // why?: Remove platform info in BE from response header
-server.use(bodyParser.urlencoded({extended: true}))
-server.use(bodyParser.json())
-server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE')
-  res.setHeader('Access-Control-Allow-Headers', 'X-API-Key, Content-Type')
-  next()
-})
-
-server.set('trust proxy', true) // why?: Trust 'x-forwarded-*' headers from a load balancer
-
-routes(server)
-
 function createBasicAuthHandler (): express.RequestHandler {
   const usrOpts: basicAuth.IUsersOptions = {
     users: {},
@@ -50,18 +33,32 @@ function createBasicAuthHandler (): express.RequestHandler {
   }
 }
 
+const server = express()
+const API_VERSION = config.apiVersion
 const basicAuthHandler = createBasicAuthHandler()
 
+server.disable('x-powered-by') // why?: Remove platform info in BE from response header
+server.use(bodyParser.urlencoded({extended: true}))
+server.use(bodyParser.json())
+server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, UPDATE')
+  res.setHeader('Access-Control-Allow-Headers', 'X-API-Key, Content-Type')
+  next()
+})
 server.use(basicAuthHandler,
   express.static(path.join(__dirname, 'public'),
   {maxAge: 0})
 )
-
 server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.setHeader('Cache-Control', 'no-cache')
   res.setHeader('Expires', '-1')
   next()
 })
+
+server.set('trust proxy', true) // why?: Trust 'x-forwarded-*' headers from a load balancer
+
+routes(server)
 
 server.listen(config.port, () => {
   logger.info(`Server listening on PORT '${config.port}'...`)
