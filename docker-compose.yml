@@ -4,7 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-server
-    image: server_on_dnw
     ports:
       - '8081:8081'
     container_name: server_on_dnw
@@ -13,7 +12,7 @@ services:
       AUTH_USR: admin
       AUTH_PW: admin
       AUTH_KEY: m3FUxbLExcUqxpYw
-      DB_HOST: localhost
+      DB_HOST: mysql_on_dnw
       DB_NAME: g2t3cnwd
       DB_TBL_NAME: e4f9rN9e
       DB_PORT: 3306
@@ -21,11 +20,11 @@ services:
       DB_USR_PW: RzPHyvgJpXzLNY3yN7Pdu7HXVYUTJNeN
       PORT: 8081
       RUN_ENV: local
+
   mysql:
     build:
       context: .
       dockerfile: Dockerfile-mysql
-    image: mysql_on_dnw
     ports:
       - '3306:3306'
     container_name: mysql_on_dnw
