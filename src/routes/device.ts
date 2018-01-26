@@ -37,7 +37,7 @@ export const deviceRoute = (server: express.Application) => {
     .get((req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
         if (validations.isValidApiKey(req)) {
-          const validated = validations.validateRequestBodyOfGettingDevice(req)
+          const validated = validations.validateRequestBodyOfGettingDevice(req.body)
 
           if (!validations.isValidDeviceUuid(validated.uuid)) {
             return modules.sendErrorMessage(res, 400, 'Bad request')
