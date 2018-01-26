@@ -9,7 +9,6 @@
     "start": "node build/server.js",
     "start:on:docker": "yarn run build && docker-compose up --build -d server mysql",
     "stop:on:docker": "docker-compose down --rmi all",
-    "restart:on:docker": "yarn run stop:on:docker && yarn run start:on:docker",
     "test": "yarn test:build && mocha ./build/test/**/*.test.js",
     "test:build": "tsc -p tsconfig.test.json"
   },
