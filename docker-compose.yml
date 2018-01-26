@@ -1,20 +1,36 @@
 version: '3'
 services:
   server:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile-server
+    image: server_on_dnw
     ports:
       - '8081:8081'
     container_name: server_on_dnw
     environment:
-      RUN_ENV: local
-      AUTH_KEY: m3FUxbLExcUqxpYw
-      PORT: 8081
-      DB_HOST: localhost
-      DB_PORT: 3306
-      DB_USR: u7yme2bt
-      DB_USR_PW: RzPHyvgJpXzLNY3yN7Pdu7HXVYUTJNeN
-      DB_NAME: g2t3cnwd
-      DB_TBL_NAME: e4f9rN9e
       API_VERSION: 1
       AUTH_USR: admin
       AUTH_PW: admin
+      AUTH_KEY: m3FUxbLExcUqxpYw
+      DB_HOST: localhost
+      DB_NAME: g2t3cnwd
+      DB_TBL_NAME: e4f9rN9e
+      DB_PORT: 3306
+      DB_USR: u7yme2bt
+      DB_USR_PW: RzPHyvgJpXzLNY3yN7Pdu7HXVYUTJNeN
+      PORT: 8081
+      RUN_ENV: local
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile-mysql
+    image: mysql_on_dnw
+    ports:
+      - '3306:3306'
+    container_name: mysql_on_dnw
+    environment:
+      MYSQL_ROOT_PASSWORD: mysqlpw
+      MYSQL_DATABASE: g2t3cnwd
+      MYSQL_USER: u7yme2bt
+      MYSQL_PASSWORD: RzPHyvgJpXzLNY3yN7Pdu7HXVYUTJNeN
