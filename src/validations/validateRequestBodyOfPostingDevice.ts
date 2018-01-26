@@ -5,8 +5,7 @@ export const validateRequestBodyOfPostingDevice = (reqBody: any) => {
   const requiredFields = [
     'uuid',
     'model',
-    'os_name',
-    'os_version',
+    'os',
     'date',
   ]
 
@@ -19,8 +18,8 @@ export const validateRequestBodyOfPostingDevice = (reqBody: any) => {
     model: reqBody.model,
     date: reqBody.date,
     os: {
-      name: reqBody.os_name,
-      version: reqBody.os_version,
+      name: reqBody.os.name,
+      version: reqBody.os.version,
     }
   }
 }

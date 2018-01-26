@@ -14,7 +14,6 @@ type IOS = {
 }
 
 const DEVICE_TBL_NAME = 'device'
-const DEVICE_DESC_TBL_NAME = 'device_desc'
 
 const pool = mysql.createPool({
   host: config.databaseHost,
@@ -73,7 +72,7 @@ export const insertDevice = (uuid: string, model: string, os: IOS,  date: string
     .set('MODEL', model)
     .set('OS_NAME', os.name)
     .set('OS_VERSION', os.version)
-    .set('DATE', date)
+    .set('CLIENT_DATE', date)
     .toParam()
 
   logger.debug('=> Creating new device information')
@@ -93,7 +92,7 @@ export const insertOrUpdateDevice = (uuid: string, model: string, os: IOS,  date
         .set('MODEL', model)
         .set('OS_NAME', os.name)
         .set('OS_VERSION', os.version)
-        .set('DATE', date)
+        .set('CLIENT_DATE', date)
         .where('UUID = ?', uuid)
         .toParam()
       logger.debug('=> Updating existing device information')
