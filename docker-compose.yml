@@ -9,9 +9,9 @@ services:
     container_name: server_on_dnw
     environment:
       API_VERSION: 1
+      API_KEY: m3FUxbLExcUqxpYw
       AUTH_USR: admin
       AUTH_PW: admin
-      AUTH_KEY: m3FUxbLExcUqxpYw
       DB_HOST: mysql_on_dnw
       DB_NAME: g2t3cnwd
       DB_TBL_NAME: e4f9rN9e

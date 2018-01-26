@@ -43,7 +43,7 @@ function getNumberValueOfRequiredEnvVariable(key: string): number {
 const runEnvs: Record<Environment, () => Config> = {
   [Environment.LOCAL]: () => ({
     runEnv: Environment.LOCAL.toString(),
-    authKey: getStringValueOfRequiredEnvVariable('AUTH_KEY'),
+    authKey: getStringValueOfRequiredEnvVariable('API_KEY'),
     port: getNumberValueOfRequiredEnvVariable('PORT'),
     databaseHost: getStringValueOfRequiredEnvVariable('DB_HOST'),
     databasePort: getNumberValueOfRequiredEnvVariable('DB_PORT'),
@@ -56,7 +56,7 @@ const runEnvs: Record<Environment, () => Config> = {
   }),
   [Environment.PRODUCTION]: () => ({
     runEnv: Environment.PRODUCTION.toString(),
-    authKey: getStringValueOfRequiredEnvVariable('AUTH_KEY'),
+    authKey: getStringValueOfRequiredEnvVariable('API_KEY'),
     port: getNumberValueOfRequiredEnvVariable('PORT'),
     databaseHost: getStringValueOfRequiredEnvVariable('DB_HOST'),
     databasePort: getNumberValueOfRequiredEnvVariable('DB_PORT'),
