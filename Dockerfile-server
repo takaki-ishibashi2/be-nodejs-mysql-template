@@ -9,6 +9,6 @@ WORKDIR $ROOT_DIR
 COPY . .
 
 # Install app dependencies
-RUN npm install --only=production --quiet
+#RUN npm install --only=production --quiet
 
 CMD ["npm", "start"]
