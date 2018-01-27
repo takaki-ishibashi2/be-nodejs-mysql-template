@@ -5,7 +5,7 @@ import * as modules from '../modules'
 import { logger } from '../logger'
 import { config } from '../config'
 import { DEVICE_ROUTE_PATH } from '../constans'
-import { sendErrorMessage } from '../modules';
+import { NextFunction } from 'express';
 
 export const deviceRoute = (server: express.Application) => {
   server.route(`${DEVICE_ROUTE_PATH}`)
@@ -19,7 +19,7 @@ export const deviceRoute = (server: express.Application) => {
             return modules.sendErrorMessage(res, 400, 'Bad request')
           } else {
             database.insertOrUpdateDevice(validated.uuid, validated.model, validated.os, validated.date)
-              .then(() => { return sendErrorMessage(res, 200, '') })
+              .then(() => { return modules.sendSuccessMessage(res, 200, '') })
               .catch((err) => {
                 logger.error(`Issue handling ${DEVICE_ROUTE_PATH}`, err)
                 return modules.sendErrorMessage(res, 500, '')
@@ -61,5 +61,14 @@ export const deviceRoute = (server: express.Application) => {
         logger.error(`Issue handling ${DEVICE_ROUTE_PATH}`, err, req.headers, req.body)
         return modules.sendErrorMessage(res, 403, 'Access not allowed')
       }
+    })
+    .delete((req: express.Request, res: express.Response, next: NextFunction) => {
+      const uuid = req.body.uuid
+      database.removeDevice(uuid)
+        .then(() => { return modules.sendSuccessMessage(res, 200, '')})
+        .catch((err) => {
+          logger.error(`Issue handling ${DEVICE_ROUTE_PATH}`, err)
+          return modules.sendErrorMessage(res, 500, 'Failed to delete device information')
+        })
     })
 }

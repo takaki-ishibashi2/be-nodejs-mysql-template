@@ -1,12 +1,8 @@
-// TODO: api versioning
-// TODO: db schema versioning
-
 import * as mysql from 'mysql'
 import * as escape from 'escape-html'
 import * as squel from 'squel'
 import { logger } from './logger'
 import { config } from './config'
-import { DEVICE_ROUTE_PATH } from './constans'
 
 type IOS = {
   name: string,
@@ -53,8 +49,6 @@ function connectAndQueryWithValues(statement: string, values: any[]) {
 }
 
 export const selectDevice = (uuid: string) => {
-  logger.info(`GET for '${DEVICE_ROUTE_PATH}'`)
-
   const query = squel.select()
     .from(DEVICE_TBL_NAME)
     .where('UUID = ?', uuid)
@@ -63,9 +57,16 @@ export const selectDevice = (uuid: string) => {
   return connectAndQueryWithValues(query.text, query.values)
 }
 
-export const insertDevice = (uuid: string, model: string, os: IOS,  date: string) => {
-  logger.info(`POST for '${DEVICE_ROUTE_PATH}'`)
+export const fuzzySelectDevice = (uuid: string) => {
+  const query = squel.select()
+    .from(DEVICE_TBL_NAME)
+    .where('UUID LIKE ?', `${uuid}%`)
+    .toParam()
+  
+  return connectAndQueryWithValues(query.text, query.values)
+}
 
+export const insertDevice = (uuid: string, model: string, os: IOS,  date: string) => {
   const query = squel.insert()
     .into(DEVICE_TBL_NAME)
     .set('UUID', uuid)
@@ -81,11 +82,10 @@ export const insertDevice = (uuid: string, model: string, os: IOS,  date: string
 }
 
 export const insertOrUpdateDevice = (uuid: string, model: string, os: IOS,  date: string) => {
-  logger.info(`POST for '${DEVICE_ROUTE_PATH}'`)
-
   return selectDevice(uuid)
     .then((result: any[]) => {
       const hasExistingRow = (result.length > 0)
+      
       if (hasExistingRow) {
         const query = squel.update()
         .table(DEVICE_TBL_NAME)
@@ -103,4 +103,15 @@ export const insertOrUpdateDevice = (uuid: string, model: string, os: IOS,  date
       return insertDevice(uuid, model, os, date)
       }
     })
+}
+
+export const removeDevice = (uuid: string) => {
+  const query = squel.delete()
+    .from(DEVICE_TBL_NAME)
+    .where('UUID = ?', uuid)
+    .toParam()
+    logger.debug('=> Deleting existing device information')
+    logger.debug(query.text)
+ 
+    return connectAndQueryWithValues(query.text, query.values)
 }
