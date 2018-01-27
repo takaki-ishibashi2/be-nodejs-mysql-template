@@ -50,6 +50,7 @@ server.use(basicAuthHandler,
   express.static(path.join(__dirname, 'public'),
   {maxAge: 0})
 )
+// why?: Disable request caching
 server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.setHeader('Cache-Control', 'no-cache')
   res.setHeader('Expires', '-1')
