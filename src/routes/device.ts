@@ -8,11 +8,10 @@ import { DEVICE_ROUTE_PATH } from '../constans'
 import { sendErrorMessage } from '../modules';
 
 export const deviceRoute = (server: express.Application) => {
-  const path = DEVICE_ROUTE_PATH
-
-  server.route(`/v${config.apiVersion}${path}`)
+  server.route(`${DEVICE_ROUTE_PATH}`)
     .post((req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
+        logger.info(`POST for '${DEVICE_ROUTE_PATH}'`)
         if (validations.isValidApiKey(req)) {
           const validated = validations.validateRequestBodyOfPostingDevice(req.body)
 
@@ -22,7 +21,7 @@ export const deviceRoute = (server: express.Application) => {
             database.insertOrUpdateDevice(validated.uuid, validated.model, validated.os, validated.date)
               .then(() => { return sendErrorMessage(res, 200, '') })
               .catch((err) => {
-                logger.error(`Issue handling ${path}`, err)
+                logger.error(`Issue handling ${DEVICE_ROUTE_PATH}`, err)
                 return modules.sendErrorMessage(res, 500, '')
               })
           }
@@ -30,12 +29,13 @@ export const deviceRoute = (server: express.Application) => {
           return modules.sendErrorMessage(res, 403, 'Access not allowed')
         }
       } catch (err) {
-        logger.error(`Issue handling ${path}`, err, req.headers, req.body);
+        logger.error(`Issue handling ${DEVICE_ROUTE_PATH}`, err, req.headers, req.body);
         return modules.sendErrorMessage(res, 400, 'Bad request')
       }
     })
     .get((req: express.Request, res: express.Response, next: express.NextFunction) => {
       try {
+        logger.info(`GET for '${DEVICE_ROUTE_PATH}'`)
         if (validations.isValidApiKey(req)) {
           const validated = validations.validateRequestBodyOfGettingDevice(req.body)
 
@@ -58,7 +58,7 @@ export const deviceRoute = (server: express.Application) => {
           return modules.sendErrorMessage(res, 403, 'Access not allowed')
         }
       } catch (err) {
-        logger.error(`Issue handling ${path}`, err, req.headers, req.body)
+        logger.error(`Issue handling ${DEVICE_ROUTE_PATH}`, err, req.headers, req.body)
         return modules.sendErrorMessage(res, 403, 'Access not allowed')
       }
     })
