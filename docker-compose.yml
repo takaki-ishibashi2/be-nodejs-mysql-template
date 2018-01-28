@@ -35,5 +35,5 @@ services:
       MYSQL_PASSWORD: "${DB_USR_PW}"
     env_file:
       - .env
-    expose:
-      - '${DB_PORT}'
+    ports:
+      - '127.0.0.1:${DB_PORT}:${DB_PORT}'
