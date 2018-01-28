@@ -21,7 +21,7 @@ services:
     env_file:
       - .env
     ports:
-      - '${PORT}:${PORT}'
+      - '127.0.0.1:${PORT}:${PORT}'
 
   mysql:
     build:
@@ -35,5 +35,5 @@ services:
       MYSQL_PASSWORD: "${DB_USR_PW}"
     env_file:
       - .env
-    ports:
-      - '${DB_PORT}:${DB_PORT}'
+    expose:
+      - '${DB_PORT}'
