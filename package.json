@@ -7,9 +7,10 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/server.js",
-    "start:on:docker": "yarn run build && docker-compose up -d",
+    "start:on:docker": "npm run build && docker-compose up -d",
+    "restart:on:docker": "npm run stop:on:docker && npm run start:on:docker",
     "stop:on:docker": "docker-compose down",
-    "test": "yarn test:build && mocha ./build/test/**/*.test.js",
+    "test": "npm run test:build && mocha ./build/test/**/*.test.js",
     "test:build": "tsc -p tsconfig.test.json"
   },
   "dependencies": {
