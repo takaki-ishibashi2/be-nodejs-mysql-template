@@ -1,8 +1,8 @@
 version: "3"
 services:
-  server:
+  node:
     command: ["npm", "start"]
-    container_name: server_on_dnw
+    container_name: node_on_dnw
     environment:
       API_VERSION: "${API_VERSION}"
       API_KEY: "${API_KEY}"
