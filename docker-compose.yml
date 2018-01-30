@@ -26,6 +26,9 @@ services:
       - ./package.json:/app/package.json
       - ./build:/app/build
     working_dir: /app
+    links:
+      - mysql
+      - mongodb
 
   mysql:
     container_name: mysql_on_dnw
@@ -37,7 +40,17 @@ services:
     env_file:
       - .env
     image: mysql:latest
-    ports:
-      - "127.0.0.1:${DB_PORT}:${DB_PORT}"
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_on_dnw
+    volumes:
+      - ./data/mngdb:/data/db
+      - .dbshell:/root/.dbshell
+    environment:
+      - MONGODB_USER="${MONGO_DB_USR}"
+      - MONGODB_PASS="${MONGO_DB_PASS}"
+    env_file:
+      - .env
