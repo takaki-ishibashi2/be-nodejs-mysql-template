@@ -2,7 +2,7 @@ version: "3"
 services:
   node:
     command: ["npm", "start"]
-    container_name: node_on_dnw
+    container_name: node_on_dnw-PdnFd9
     environment:
       API_VERSION: "${API_VERSION}"
       API_KEY: "${API_KEY}"
@@ -31,7 +31,7 @@ services:
       - mongodb
 
   mysql:
-    container_name: mysql_on_dnw
+    container_name: mysql_on_dnw-7kYLNJ
     environment:
       MYSQL_ROOT_PASSWORD: mysqlpw
       MYSQL_DATABASE: "${DB_NAME}"
@@ -42,10 +42,12 @@ services:
     image: mysql:latest
     volumes:
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "127.0.0.1:3306:3306"
 
   mongodb:
     image: mongo:latest
-    container_name: mongo_on_dnw
+    container_name: mongo_on_dnw-9PtqLv
     volumes:
       - ./data/mngdb:/data/db
       - .dbshell:/root/.dbshell
