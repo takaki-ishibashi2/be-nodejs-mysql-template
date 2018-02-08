@@ -3,6 +3,7 @@ import * as escape from 'escape-html'
 import * as squel from 'squel'
 import { logger } from './logger'
 import { config } from './config'
+import * as modules from './modules'
 
 type IOS = {
   name: string,
@@ -112,6 +113,19 @@ export const removeDevice = (uuid: string) => {
     .toParam()
     logger.debug('=> Deleting existing device information')
     logger.debug(query.text)
- 
+
+  return connectAndQueryWithValues(query.text, query.values)
+}
+
+export const updateDevice = (uuid: string, model: string, os: IOS, date: string) => {
+  const query = squel.update()
+    .table(DEVICE_TBL_NAME)
+    .set('MODEL', model)
+    .set('OS_NAME', os.name)
+    .set('OS_VERSION', os.version)
+    .set('CLIENT_DATE', date)
+    .where('UUID = ?', uuid)
+    .toParam()
+
     return connectAndQueryWithValues(query.text, query.values)
 }

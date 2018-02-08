@@ -42,7 +42,7 @@ server.use(bodyParser.urlencoded({extended: true}))
 server.use(bodyParser.json())
 server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
   res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE')
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT')
   res.setHeader('Access-Control-Allow-Headers', 'X-API-Key, Content-Type')
   next()
 })

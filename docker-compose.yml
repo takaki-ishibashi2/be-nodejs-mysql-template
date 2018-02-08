@@ -1,10 +1,8 @@
-version: '3'
+version: "3"
 services:
-  server:
-    build:
-      context: .
-      dockerfile: Dockerfile-server
-    container_name: server_on_dnw
+  node:
+    command: ["npm", "start"]
+    container_name: node_on_dnw-PdnFd9
     environment:
       API_VERSION: "${API_VERSION}"
       API_KEY: "${API_KEY}"
@@ -20,14 +18,20 @@ services:
       RUN_ENV: "${RUN_ENV}"
     env_file:
       - .env
+    image: node:carbon
     ports:
-      - '${PORT}:${PORT}'
+      - "127.0.0.1:${PORT}:${PORT}"
+    volumes:
+      - ./node_modules:/app/node_modules
+      - ./package.json:/app/package.json
+      - ./build:/app/build
+    working_dir: /app
+    links:
+      - mysql
+      - mongodb
 
   mysql:
-    build:
-      context: .
-      dockerfile: Dockerfile-mysql
-    container_name: mysql_on_dnw
+    container_name: mysql_on_dnw-7kYLNJ
     environment:
       MYSQL_ROOT_PASSWORD: mysqlpw
       MYSQL_DATABASE: "${DB_NAME}"
@@ -35,5 +39,20 @@ services:
       MYSQL_PASSWORD: "${DB_USR_PW}"
     env_file:
       - .env
+    image: mysql:latest
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
-      - '${DB_PORT}:${DB_PORT}'
+      - "127.0.0.1:3306:3306"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongo_on_dnw-9PtqLv
+    volumes:
+      - ./data/mngdb:/data/db
+      - .dbshell:/root/.dbshell
+    environment:
+      - MONGODB_USER="${MONGO_DB_USR}"
+      - MONGODB_PASS="${MONGO_DB_PASS}"
+    env_file:
+      - .env

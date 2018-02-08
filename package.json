@@ -7,9 +7,10 @@
   "scripts": {
     "build": "tsc",
     "start": "node build/server.js",
-    "start:on:docker": "yarn run build && docker-compose up --build -d",
-    "stop:on:docker": "docker-compose down --rmi all",
-    "test": "yarn test:build && mocha ./build/test/**/*.test.js",
+    "start:on:docker": "npm run build && docker-compose up -d mysql",
+    "restart:on:docker": "npm run stop:on:docker && npm run start:on:docker",
+    "stop:on:docker": "docker-compose down",
+    "test": "npm run test:build && mocha ./build/test/**/*.test.js",
     "test:build": "tsc -p tsconfig.test.json"
   },
   "dependencies": {

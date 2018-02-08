@@ -1,0 +1,1 @@
+curl -H "Content-type: application/json" -H "X-API-Key: m3FUxbLExcUqxpYw" -X POST -d '{"uuid":"1273F2826CFD4D2D8243EE63654320BA", "model":"iPhone11,1", "os":{"name":"iOS", "version":"12.0.0"}, "date":"2019-01-11 07:26:36.897123"}' -i localhost:8081/api/v1/devices -u admin:admin
