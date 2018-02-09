@@ -5,7 +5,8 @@ import { validateRequestBodyOfDeletingDevice } from './validateRequestBodyOfDele
 import { validateRequestBodyOfGettingDevice } from './validateRequestBodyOfGettingDevice'
 import { validatePatchRequestBodyOfDevice} from './validatePatchRequestBodyOfDevice'
 import { validateRequestBodyOfPostingDevice } from './validateRequestBodyOfPostingDevice'
-
+import { validatePatchRequestOfDeviceModel} from './validatePatchRequestOfDeviceModel'
+import { validatePatchRequestOfDeviceOS } from './validatePatchRequestOfDeviceOS'
 export {
   isNotEmptyString,
   isValidApiKey,
@@ -14,4 +15,6 @@ export {
   validateRequestBodyOfGettingDevice,
   validatePatchRequestBodyOfDevice,
   validateRequestBodyOfPostingDevice,
+  validatePatchRequestOfDeviceModel,
+  validatePatchRequestOfDeviceOS,
 }

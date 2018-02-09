@@ -129,3 +129,22 @@ export const updateDevice = (uuid: string, model: string, os: IOS, date: string)
 
     return connectAndQueryWithValues(query.text, query.values)
 }
+
+export const updateDeviceModel = (uuid: string, model: string, date: string) => {
+  const query = squel.update()
+    .table(DEVICE_TBL_NAME)
+    .set('MODEL', model)
+    .where('UUID = ?', uuid)
+    .toParam()
+  return connectAndQueryWithValues(query.text, query.values)
+}
+
+export const updateDeviceOS = (uuid: string, os: IOS, date: string) => {
+  const query = squel.update()
+    .table(DEVICE_TBL_NAME)
+    .set('OS_NAME', os.name)
+    .set('OS_VERSION', os.version)
+    .where('UUID = ?', uuid)
+    .toParam()
+  return connectAndQueryWithValues(query.text, query.values)
+}
